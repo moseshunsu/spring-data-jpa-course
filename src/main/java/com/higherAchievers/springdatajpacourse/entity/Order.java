@@ -7,9 +7,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -31,4 +34,13 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Address billingAddress;
+
+    //default fetch tpe for one to many is LAZY
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Set<OrderItem> orderItems = new HashSet<>();
 }
+
+
+
+
