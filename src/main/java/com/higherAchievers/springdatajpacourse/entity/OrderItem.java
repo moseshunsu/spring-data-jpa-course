@@ -25,6 +25,12 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    //default fetch tpe for many to one is LAZY
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @ToString.Exclude
+    private Order order;
+
 }
 
 

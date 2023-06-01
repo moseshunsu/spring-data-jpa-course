@@ -54,6 +54,8 @@ public class OneToManyMappingTest {
         address.setCity("Apapa");
 
         order.setBillingAddress(address);
+        orderItem1.setOrder(order);
+        orderItem2.setOrder(order);
 
         orderRepository.save(order);
     }
