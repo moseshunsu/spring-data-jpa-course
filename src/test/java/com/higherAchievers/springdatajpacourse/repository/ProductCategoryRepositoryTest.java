@@ -2,6 +2,7 @@ package com.higherAchievers.springdatajpacourse.repository;
 
 import com.higherAchievers.springdatajpacourse.entity.Product;
 import com.higherAchievers.springdatajpacourse.entity.ProductCategory;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,6 +40,17 @@ class ProductCategoryRepositoryTest {
         productCategory.getProducts().add(product2);
 
         productCategoryRepository.save(productCategory);
+    }
+
+    @Test
+    @Transactional
+    void fetchProductCategory(){
+        ProductCategory category = productCategoryRepository.findById(1L).get();
+
+        // calling .getProducts to category will fetch the products despite it being initialized to lazy
+        // at the entity class.
+        // Note: this will work only if the test method has @Transactional annotation
+        System.out.println(category.getProducts());
     }
 
 }
